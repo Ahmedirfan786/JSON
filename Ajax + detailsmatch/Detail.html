@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&family=Poppins:wght@800&family=Roboto:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&family=Poppins:wght@800&display=swap');
+
+
+    .album {
+      background:linear-gradient(145deg,rgb(0, 251, 255),blueviolet);
+    }
+    .card{
+      border: 1px solid rgb(164, 13, 146);
+    }
+    .Laptopname{
+        color: blueviolet;
+      font-size: 35px;
+      font-family: 'Roboto', sans-serif;
+    }
+    .price{
+        color: rgb(221, 159, 215);
+        font-weight: 600;
+    }
+    .description{
+        color: blueviolet;
+      font-size: 25px;
+      font-family: 'Roboto', sans-serif;
+    }
+    .descriptiontxt{
+        color: rgb(227, 89, 222);
+        font-size: 16px;
+    }
+</style>
+
+<body>
+    <div class="album py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4" id="img">
+    
+                </div>
+    
+                <div class="col-lg-8" id="det">
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+    let url = location.href;
+    let obj = new URL(url);
+    let url_id = obj.searchParams.get("id")
+
+    // alert(url_id)
+
+    fetch("data.json")
+        .then(Response => Response.json())
+        .then(result => {
+            let a = "";
+            let details = ""
+            for (let key of result) {
+                if (url_id == key.id) {
+                    a += `
+                <div class="card">
+                    <img src="${key.img}" class="card-img-top" alt="">
+                    </div>
+                `;
+
+                    details += `
+                <div class="card">
+                    <div class="card-body">
+              <h5 class="card-title Laptopname">${key.Laptopname}</h5>
+              <p class="card-text price">Price:${key.price}</p>
+              <h5 class="description">Description</h5>
+              <p class="descriptiontxt">Price:${key.description}</p>
+              <div class="d-flex justify-content-between align-items-center">
+              </div>
+            </div>
+            </div>
+                `
+
+                }
+
+                document.querySelector("#img").innerHTML = a;
+                document.querySelector("#det").innerHTML = details;
+            }
+        })
+</script>
+
+</html>
